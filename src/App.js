@@ -17,7 +17,7 @@ function App() {
         <Col span={12}><LocationsMap /></Col>
       </Row>
       <Row style={{height: "50%"}}>
-        <Col span={24}><SearchResults /></Col>
+        <Col span={24}><SearchResults locations={results}/></Col>
       </Row>
     </div>
   );
