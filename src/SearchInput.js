@@ -3,9 +3,6 @@ const axios = require('axios');
 const GOOGLE_PLACES_API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
 const GOOGLE_GEOCODING_API_KEY = process.env.REACT_APP_GOOGLE_GEOCODING_API_KEY;
 const RADIUS = 10;
-const getLocation = (input) => {
-
-};
 
 function SearchInput(props) {
 
@@ -36,7 +33,24 @@ function SearchInput(props) {
       })
       .then ( (res) => {
         console.log("results", res);
-        props.setResults(res.data.results);
+        let finalResults = [];
+        for (let i = 0; i < res.data.results.length; i++) {
+          axios.get("https://maps.googleapis.com/maps/api/place/details/json", {
+            params: {
+              key: GOOGLE_PLACES_API_KEY,
+              place_id: res.data.results[i].place_id,
+              fields: "formatted_address,name,formatted_phone_number,website,price_level,rating"
+            }
+          })
+          .then((individualRes) => {
+            console.log(i, individualRes);
+            finalResults.splice(i, 0, individualRes.data.result);
+            if (i === res.data.results.length - 1) {
+              props.setResults(finalResults);
+            }
+          })
+          .catch((error) => console.log(error))
+        }
       })
       .catch((error) => console.log(error))
     })
