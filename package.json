@@ -39,5 +39,6 @@
   },
   "devDependencies": {
     "postcss": "^8.2.10"
-  }
+  },
+  "proxy": "https://maps.googleapis.com/maps/api/place/textsearch/json"
 }
