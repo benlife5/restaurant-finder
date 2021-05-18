@@ -6,13 +6,16 @@ const RADIUS = 1600 * 5;
 
 function SearchInput(props) {
 
+  // Main Search Function
   const search = (searchInput) => {
+    // Convert input to geo location
     axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
       params: {
         key: GOOGLE_GEOCODING_API_KEY,
         address: searchInput.location
       }
     })
+    // Convert location to coordinates
     .then((geocodeLocation) => {
       console.log("location", geocodeLocation);
       if (geocodeLocation.data.status === "OK") {
@@ -21,7 +24,8 @@ function SearchInput(props) {
       else {
         console.log("Error:", geocodeLocation)
       }
-    })
+    }) 
+    // Main search for places 
     .then ((coords) => {
       axios.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json", {
         params: {
@@ -32,6 +36,7 @@ function SearchInput(props) {
           opennow: "true"
         }
       })
+      // Get desired info about all places
       .then((locations) => {
         console.log("results", locations);
         console.log("inputLocations", locations.data.results);
@@ -49,10 +54,12 @@ function SearchInput(props) {
               return info.data.result;
           })
         )
+        // Update app 
         .then((finalLocations) => {
           console.log("outputLocations", finalLocations)
           props.setResults(finalLocations);
         })
+        // Error handling
         .catch((error) => console.log(error))
       })
       .catch((error) => console.log(error))
@@ -70,7 +77,7 @@ function SearchInput(props) {
           label="Location"
           name="location"
         >
-          <Input span={8}/>
+          <Input />
         </Form.Item>
 
         <Form.Item>
