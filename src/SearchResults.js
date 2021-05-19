@@ -5,7 +5,7 @@ function SearchResults(props) {
   return (
     <div>
       SearchResults
-      {props.locations.map((l) => <p>{l.name}</p>)}
+      {props.locations.map((l) => <p key={l.place_id}>{l.name}</p>)}
     </div>
   );
 }

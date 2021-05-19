@@ -1,13 +1,15 @@
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, InputNumber, Select, Checkbox } from "antd";
+const { Option } = Select;
 const axios = require('axios');
 const GOOGLE_PLACES_API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
 const GOOGLE_GEOCODING_API_KEY = process.env.REACT_APP_GOOGLE_GEOCODING_API_KEY;
-const RADIUS = 1600 * 5;
+const MILE_TO_METER = 1609.34;
 
 function SearchInput(props) {
 
   // Main Search Function
   const search = (searchInput) => {
+    console.log(searchInput)
     // Convert input to geo location
     axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
       params: {
@@ -27,12 +29,13 @@ function SearchInput(props) {
     }) 
     // Main search for places 
     .then ((coords) => {
+      console.log(searchInput)
       axios.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json", {
         params: {
           key: GOOGLE_PLACES_API_KEY,
           location: coords.lat + "," + coords.lng,
-          radius: RADIUS,
-          type: "restaurant",
+          radius: (parseInt(searchInput.radius) * MILE_TO_METER),
+          type: searchInput.type,
           opennow: "true"
         }
       })
@@ -47,7 +50,7 @@ function SearchInput(props) {
                 params: {
                   key: GOOGLE_PLACES_API_KEY,
                   place_id: location.place_id,
-                  fields: "formatted_address,name,formatted_phone_number,website,price_level,rating"
+                  fields: "formatted_address,name,formatted_phone_number,website,price_level,rating,place_id"
                 }
               })
               .catch((error) => console.log(error))
@@ -70,20 +73,31 @@ function SearchInput(props) {
   return (
     <div>
       SearchInput
-      <Form
-        onFinish={search}
-      >
-        <Form.Item
-          label="Location"
-          name="location"
-        >
-          <Input />
+      <Form onFinish={search} initialValues={{type: "restaurant", radius: 5}} layout="inline">
+        <Form.Item label="Location" name="location">
+          <Input /> 
+        </Form.Item>
+
+        <Form.Item label="Radius (mi)" name="radius"> 
+          <InputNumber />
+        </Form.Item>
+
+        {/* WHYYYYY does this not work */}
+        <Form.Item label="Open Now" valuePropName="checked">
+          <Checkbox label="Open Now" defaultChecked="true" name="open"/>
+        </Form.Item>
+        
+
+        <Form.Item label="Type" name="type"> 
+          <Select name="type">
+            <Option value="restaurant">Restaurant</Option>
+            <Option value="bar">Bar</Option>
+            <Option value="cafe">Cafe</Option>
+          </Select>
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Search
-          </Button>
+          <Button type="primary" htmlType="submit"> Search </Button> 
         </Form.Item>
       </Form>
     </div>
