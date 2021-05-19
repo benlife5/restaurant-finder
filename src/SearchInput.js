@@ -28,15 +28,17 @@ function SearchInput(props) {
       }
     }) 
     // Main search for places 
+    // TODO: fix the opennow parameter
     .then ((coords) => {
-      console.log(searchInput)
+      console.log(searchInput);
+      
       axios.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json", {
         params: {
           key: GOOGLE_PLACES_API_KEY,
           location: coords.lat + "," + coords.lng,
           radius: (parseInt(searchInput.radius) * MILE_TO_METER),
           type: searchInput.type,
-          opennow: "true"
+          opennow: (searchInput.open? "true" : "dskfjaklsdjfaljldfksa")
         }
       })
       // Get desired info about all places
@@ -82,9 +84,8 @@ function SearchInput(props) {
           <InputNumber />
         </Form.Item>
 
-        {/* WHYYYYY does this not work */}
-        <Form.Item label="Open Now" valuePropName="checked">
-          <Checkbox label="Open Now" defaultChecked="true" name="open"/>
+        <Form.Item label="Open Now" valuePropName="checked" name="open">
+          <Checkbox options={[{value: true}]}/>
         </Form.Item>
         
 
