@@ -9,7 +9,7 @@ function SearchInput(props) {
 
   // Main Search Function
   const search = (searchInput) => {
-    console.log(searchInput)
+    // console.log(searchInput)
     // Convert input to geo location
     axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
       params: {
@@ -19,7 +19,7 @@ function SearchInput(props) {
     })
     // Convert location to coordinates
     .then((geocodeLocation) => {
-      console.log("location", geocodeLocation);
+      // console.log("location", geocodeLocation);
       if (geocodeLocation.data.status === "OK") {
         return geocodeLocation.data.results[0].geometry.location;
       }
@@ -30,7 +30,7 @@ function SearchInput(props) {
     // Main search for places 
     // TODO: fix the opennow parameter
     .then ((coords) => {
-      console.log(searchInput);
+      // console.log(searchInput);
       
       axios.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json", {
         params: {
@@ -43,8 +43,8 @@ function SearchInput(props) {
       })
       // Get desired info about all places
       .then((locations) => {
-        console.log("results", locations);
-        console.log("inputLocations", locations.data.results);
+        // console.log("results", locations);
+        // console.log("inputLocations", locations.data.results);
 
           Promise.all(
             locations.data.results.map( async (location) => {
@@ -61,7 +61,8 @@ function SearchInput(props) {
         )
         // Update app 
         .then((finalLocations) => {
-          console.log("outputLocations", finalLocations)
+          // console.log("outputLocations", finalLocations)
+          finalLocations.map((location) => location["key"] = location["place_id"]);  // Needed for react
           props.setResults(finalLocations);
         })
         // Error handling
