@@ -36,7 +36,10 @@ function SearchResults(props) {
       title: "Link",
       dataIndex: "website",
       key: "url",
-      render: link => <a href={link}>Website</a>,
+      render: link => {
+        if (link === undefined) return "";
+        return <a href={link}>Website</a>;
+      }
     }, 
     {
       title: "Phone",
@@ -47,11 +50,7 @@ function SearchResults(props) {
   ]
 
   return (
-    // <div style={{height: "50vh", overflowY: "scroll"}}>
     <div>
-      {/* SearchResults
-      {props.locations.map((l) => <p key={l.place_id}>{l.name}</p>)} */}
-
       <Table dataSource={props.locations} columns={columns} pagination={{pageSize: 20, position: ["none", "none"]}} scroll={{y: "40vh"}}/>
     </div>
   );
