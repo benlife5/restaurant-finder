@@ -47,11 +47,12 @@ function SearchResults(props) {
   ]
 
   return (
+    // <div style={{height: "50vh", overflowY: "scroll"}}>
     <div>
       {/* SearchResults
       {props.locations.map((l) => <p key={l.place_id}>{l.name}</p>)} */}
 
-      <Table dataSource={props.locations} columns={columns} />
+      <Table dataSource={props.locations} columns={columns} pagination={{pageSize: 20, position: ["none", "none"]}} scroll={{y: "40vh"}}/>
     </div>
   );
 }
