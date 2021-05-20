@@ -7,7 +7,8 @@ function SearchResults(props) {
     {
       title: "Name",
       dataIndex: "name",
-      key: "name"
+      key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name)
     }, 
     {
       title: "Address",
@@ -17,7 +18,8 @@ function SearchResults(props) {
     {
       title: "Rating",
       dataIndex: "rating",
-      key: "rating"
+      key: "rating",
+      sorter: (a, b) => a.rating - b.rating
     }, 
     {
       title: "Price",
@@ -31,6 +33,7 @@ function SearchResults(props) {
         }
         return output;
       },
+      sorter: (a, b) => b.price_level - a.price_level
     },
     {
       title: "Link",
