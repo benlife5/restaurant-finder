@@ -31,15 +31,17 @@ function SearchInput(props) {
     // TODO: fix the opennow parameter
     .then ((coords) => {
       // console.log(searchInput);
+      let searchParams = {
+        key: GOOGLE_PLACES_API_KEY,
+        location: coords.lat + "," + coords.lng,
+        radius: (parseInt(searchInput.radius) * MILE_TO_METER),
+        type: searchInput.type,
+        // opennow: (searchInput.open? "true" : "false")
+      }
+      if (searchInput.open)  searchParams["opennow"] = "";
       
       axios.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json", {
-        params: {
-          key: GOOGLE_PLACES_API_KEY,
-          location: coords.lat + "," + coords.lng,
-          radius: (parseInt(searchInput.radius) * MILE_TO_METER),
-          type: searchInput.type,
-          opennow: (searchInput.open? "true" : "dskfjaklsdjfaljldfksa")
-        }
+        params: searchParams 
       })
       // Get desired info about all places
       .then((locations) => {
