@@ -76,29 +76,30 @@ function SearchInput(props) {
   };
 
   return (
-    <div>
-      SearchInput
-      <Form onFinish={search} initialValues={{type: "restaurant", radius: 5}} layout="inline">
+    <div style={{paddingRight: "2%"}}>
+      <Form onFinish={search} initialValues={{type: "restaurant", radius: 5}} layout="horizontal">
         <Form.Item label="Location" name="location">
           <Input /> 
         </Form.Item>
 
-        <Form.Item label="Radius (mi)" name="radius"> 
-          <InputNumber />
-        </Form.Item>
+        <div style={{display: "flex", flexDirection: "row", gap: "2%"}}>
+          <Form.Item label="Radius (mi)" name="radius"> 
+            <InputNumber />
+          </Form.Item>
 
-        <Form.Item label="Open Now" valuePropName="checked" name="open">
-          <Checkbox options={[{value: true}]}/>
-        </Form.Item>
-        
+          <Form.Item label="Open Now" valuePropName="checked" name="open">
+            <Checkbox options={[{value: true}]}/>
+          </Form.Item>
+          
 
-        <Form.Item label="Type" name="type"> 
-          <Select name="type">
-            <Option value="restaurant">Restaurant</Option>
-            <Option value="bar">Bar</Option>
-            <Option value="cafe">Cafe</Option>
-          </Select>
-        </Form.Item>
+          <Form.Item label="Type" name="type"> 
+            <Select name="type">
+              <Option value="restaurant">Restaurant</Option>
+              <Option value="bar">Bar</Option>
+              <Option value="cafe">Cafe</Option>
+            </Select>
+          </Form.Item>
+        </div>
 
         <Form.Item>
           <Button type="primary" htmlType="submit"> Search </Button> 
