@@ -22,17 +22,27 @@ function SearchResults(props) {
     {
       title: "Price",
       dataIndex: "price_level",
-      key: "price"
+      key: "price",
+      render: priceLevelStr => {
+        const priceLevelNum = parseInt(priceLevelStr);
+        let output = "";
+        for (let i = 0; i < priceLevelNum; i++) {
+          output += "$"
+        }
+        return output;
+      },
     },
     {
       title: "Link",
       dataIndex: "website",
-      key: "url"
+      key: "url",
+      render: link => <a href={link}>Website</a>,
     }, 
     {
       title: "Phone",
       dataIndex: "formatted_phone_number",
-      key: "phone"
+      key: "phone",
+      render: number => <a href={"tel:" + number}>{number}</a>,
     }
   ]
 
