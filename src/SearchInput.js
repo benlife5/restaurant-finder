@@ -54,7 +54,7 @@ function SearchInput(props) {
                 params: {
                   key: GOOGLE_PLACES_API_KEY,
                   place_id: location.place_id,
-                  fields: "formatted_address,name,formatted_phone_number,website,price_level,rating,place_id"
+                  fields: "formatted_address,name,formatted_phone_number,website,price_level,rating,place_id,geometry"
                 }
               })
               .catch((error) => console.log(error))

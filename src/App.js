@@ -14,7 +14,7 @@ function App() {
     <div style={{height: "100%"}}>
       <Row style={{height: "50%"}}>
         <Col span={12}><SearchInput setResults={setResults}/></Col>
-        <Col span={12}><LocationsMap /></Col>
+        <Col span={12}><LocationsMap locations={results}/></Col>
       </Row>
       <Row style={{height: "50%"}}>
         <Col span={24}><SearchResults locations={results}/></Col>
