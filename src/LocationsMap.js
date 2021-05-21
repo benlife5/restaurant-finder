@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import ReactMapGL, {Marker} from 'react-map-gl';
+import ReactMapGL, {Marker, Popup} from 'react-map-gl';
 
 function LocationsMap(props) {
   const locations = props.locations;
   const [viewport, setViewport] = useState();
+  const [activePopup, setActivePopup] = useState();
 
   useEffect(() => {
     if (locations === null) return null;
@@ -32,6 +33,10 @@ function LocationsMap(props) {
     })
   }, [locations])
 
+  const click = (l) => {
+    console.log("click", l)
+  }
+
 
   if (locations === null) return null;
 
@@ -41,11 +46,15 @@ function LocationsMap(props) {
       {...viewport}
       onViewportChange={nextViewport => setViewport(nextViewport)}
     >
-      {/* {locations.map((l) => alert(l.geometry.location.lat))} */}
       {locations.map((l) => 
         <Marker latitude={l.geometry.location.lat} longitude={l.geometry.location.lng} offsetLeft={-20} offsetTop={-10} key={l.key}>
-          <div>{l.name}</div>
+          <img src="https://img.icons8.com/color/16/000000/marker--v1.png" alt="Red marker" onClick={() => {setActivePopup(l)}} />
         </Marker>
+      )}
+      {activePopup && (
+        <Popup tipSize={5} anchor="top" longitude={activePopup.geometry.location.lng} latitude={activePopup.geometry.location.lat}>
+          {activePopup.name}
+        </Popup>
       )}
  
   </ReactMapGL>
