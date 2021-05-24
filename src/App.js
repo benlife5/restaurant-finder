@@ -9,7 +9,7 @@ import LocationsMap from './LocationsMap.js';
 function App() {
 
   const [results, setResults] = useState(null);
-  console.log("TOP LEVEL", results)
+  // console.log("TOP LEVEL", results)
   return (
     <div style={{height: "100%"}}>
       <Row style={{height: "50%"}}>

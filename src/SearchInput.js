@@ -28,7 +28,6 @@ function SearchInput(props) {
       }
     }) 
     // Main search for places 
-    // TODO: fix the opennow parameter
     .then ((coords) => {
       // console.log(searchInput);
       let searchParams = {
@@ -36,7 +35,6 @@ function SearchInput(props) {
         location: coords.lat + "," + coords.lng,
         radius: (parseInt(searchInput.radius) * MILE_TO_METER),
         type: searchInput.type,
-        // opennow: (searchInput.open? "true" : "false")
       }
       if (searchInput.open)  searchParams["opennow"] = "";
       
@@ -46,8 +44,6 @@ function SearchInput(props) {
       // Get desired info about all places
       .then((locations) => {
         // console.log("results", locations);
-        // console.log("inputLocations", locations.data.results);
-
           Promise.all(
             locations.data.results.map( async (location) => {
               let info = await axios.get("https://maps.googleapis.com/maps/api/place/details/json", {

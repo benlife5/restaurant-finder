@@ -19,11 +19,11 @@ function LocationsMap(props) {
         bottomRight = locations[i].geometry.location;
       }
     }
-    console.log("start", topLeft, bottomRight)
+    // console.log("start", topLeft, bottomRight)
   
     const lat = (bottomRight.lat - topLeft.lat) / 2 + topLeft.lat;
     const lng = (bottomRight.lng - topLeft.lng) / 2 + topLeft.lng;
-    console.log("final", lat, lng)
+    // console.log("final", lat, lng)
     setViewport({
       width: "100%",
       height: "100%",
@@ -35,7 +35,7 @@ function LocationsMap(props) {
   }, [locations])
 
   if (locations === null) {
-    return <div style={{marginTop: "2vh", width: "100%", height: "95%", backgroundColor: "lightgrey", display: "flex", alignItems: "center", justifyContent: "center"}}>Enter an address to begin</div>;
+    return <div style={{width: "100%", height: "100%", backgroundColor: "lightgrey", display: "flex", alignItems: "center", justifyContent: "center"}}>Enter an address to begin</div>;
   }
   return (
     <ReactMapGL
