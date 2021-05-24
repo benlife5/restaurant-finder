@@ -50,7 +50,7 @@ function SearchResults(props) {
       key: "url",
       render: link => {
         if (link === undefined) return "";
-        return <a href={link}>Website</a>;
+        return <a href={link} target="_blank" rel="noreferrer">Website</a>;
       },
       width: "10%"
     }, 
