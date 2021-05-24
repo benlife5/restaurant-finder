@@ -89,33 +89,40 @@ function SearchInput(props) {
   };
 
   return (
-    <div style={{paddingRight: "2%"}}>
+    <div style={{marginRight: "2%", backgroundColor: "#f9f9f9", height: "100%", padding: "2%"}}>
       <Form onFinish={search} initialValues={{type: "restaurant", radius: 5}} layout="horizontal">
         <Form.Item label="Location" name="location">
           <AutoComplete options={options} onSearch={autoComplete} /> 
         </Form.Item>
 
-        <div style={{display: "flex", flexDirection: "row", gap: "2%"}}>
+        <div style={{display: "flex", flexDirection: "row", gap: "2%", justifyContent: "space-between"}}>
           <Form.Item label="Radius (mi)" name="radius"> 
             <InputNumber />
           </Form.Item>
 
-          <Form.Item label="Open Now" valuePropName="checked" name="open">
+          <Form.Item label="Open Now" valuePropName="checked" name="open" style={{textAlign: "center"}}>
             <Checkbox options={[{value: true}]}/>
           </Form.Item>
           
 
           <Form.Item label="Type" name="type"> 
-            <Select name="type">
+            <Select name="type" style={{width: "9em"}}>
               <Option value="restaurant">Restaurant</Option>
               <Option value="bar">Bar</Option>
               <Option value="cafe">Cafe</Option>
+              <Option value="bakery">Bakery</Option>
+              <Option value="supermarket">Supermarket</Option>
+              <Option value="pharmacy">Pharmacy</Option>
+              <Option value="park">Park</Option>
+              <Option value="gas_station">Gas Station</Option>
+              <Option value="store">Store</Option>
+
             </Select>
           </Form.Item>
         </div>
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit"> Search </Button> 
+        <Form.Item style={{textAlign: "center"}}>
+          <Button type="primary" htmlType="submit" style={{width: "75%"}}> Search </Button> 
         </Form.Item>
       </Form>
     </div>

@@ -2,7 +2,7 @@ import { Table } from "antd";
 
 function SearchResults(props) {
   if (props.locations === null) {
-    return <div style={{marginTop: "2vh", width: "100%", height: "95%", backgroundColor: "lightgrey", display: "flex", alignItems: "center", justifyContent: "center"}}>Enter an address to begin</div>;
+    return <div style={{marginTop: "2vh", width: "100%", height: "95%", backgroundColor: "#f9f9f9", display: "flex", alignItems: "center", justifyContent: "center"}}>Enter an address to begin</div>;
   }
 
   const columns = [
