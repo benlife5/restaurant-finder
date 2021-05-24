@@ -1,4 +1,5 @@
-import { Form, Input, Button, InputNumber, Select, Checkbox } from "antd";
+import { Form, Button, InputNumber, Select, Checkbox, AutoComplete } from "antd";
+import { useState } from 'react';
 const { Option } = Select;
 const axios = require('axios');
 const GOOGLE_PLACES_API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
@@ -6,6 +7,22 @@ const GOOGLE_GEOCODING_API_KEY = process.env.REACT_APP_GOOGLE_GEOCODING_API_KEY;
 const MILE_TO_METER = 1609.34;
 
 function SearchInput(props) {
+  const [options, setOptions] = useState([]);
+
+  const autoComplete = (searchInput) => {
+    axios.get("https://maps.googleapis.com/maps/api/place/autocomplete/json", {
+      params: {
+        key: GOOGLE_PLACES_API_KEY,
+        input: searchInput
+      }
+    })
+    .then((res) => {
+      console.log("prediction: ", res);
+      const predictions = res.data.predictions.map(prediction => {return {value: prediction.description}});
+      setOptions(predictions);
+    })
+    .catch((error) => console.log(error));
+  }
 
   // Main Search Function
   const search = (searchInput) => {
@@ -19,7 +36,7 @@ function SearchInput(props) {
     })
     // Convert location to coordinates
     .then((geocodeLocation) => {
-      // console.log("location", geocodeLocation);
+      console.log("location", geocodeLocation);
       if (geocodeLocation.data.status === "OK") {
         return geocodeLocation.data.results[0].geometry.location;
       }
@@ -29,7 +46,7 @@ function SearchInput(props) {
     }) 
     // Main search for places 
     .then ((coords) => {
-      // console.log(searchInput);
+      console.log(searchInput);
       let searchParams = {
         key: GOOGLE_PLACES_API_KEY,
         location: coords.lat + "," + coords.lng,
@@ -43,7 +60,7 @@ function SearchInput(props) {
       })
       // Get desired info about all places
       .then((locations) => {
-        // console.log("results", locations);
+        console.log("results", locations);
           Promise.all(
             locations.data.results.map( async (location) => {
               let info = await axios.get("https://maps.googleapis.com/maps/api/place/details/json", {
@@ -75,7 +92,7 @@ function SearchInput(props) {
     <div style={{paddingRight: "2%"}}>
       <Form onFinish={search} initialValues={{type: "restaurant", radius: 5}} layout="horizontal">
         <Form.Item label="Location" name="location">
-          <Input /> 
+          <AutoComplete options={options} onSearch={autoComplete} /> 
         </Form.Item>
 
         <div style={{display: "flex", flexDirection: "row", gap: "2%"}}>
