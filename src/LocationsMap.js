@@ -48,8 +48,9 @@ function LocationsMap(props) {
         </Marker>
       )}
       {activePopup && (
-        <Popup tipSize={5} anchor="top" longitude={activePopup.geometry.location.lng} latitude={activePopup.geometry.location.lat} onClose={setActivePopup}>
-          {activePopup.name}
+        <Popup tipSize={5} anchor="top" longitude={activePopup.geometry.location.lng} latitude={activePopup.geometry.location.lat} onClose={setActivePopup} closeOnClick={false}>
+          <a href={"#" + activePopup.name.replaceAll(" ", "-")}>{activePopup.name}</a>
+          {/* <a href={"https://google.com"}>{activePopup.name}</a> */}
         </Popup>
       )}
  

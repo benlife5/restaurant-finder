@@ -11,6 +11,7 @@ function SearchResults(props) {
       dataIndex: "name",
       key: "name",
       sorter: (a, b) => a.name.localeCompare(b.name),
+      render: name => <p style={{display: "inline"}} id={name.replaceAll(" ", "-")}>{name}</p>,
       width: "20%"
     }, 
     {
