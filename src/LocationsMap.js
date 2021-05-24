@@ -35,7 +35,7 @@ function LocationsMap(props) {
   }, [locations])
 
   if (locations === null) {
-    return <div style={{width: "100%", height: "100%", backgroundColor: "lightgrey"}} />;
+    return <div style={{marginTop: "2vh", width: "100%", height: "95%", backgroundColor: "lightgrey", display: "flex", alignItems: "center", justifyContent: "center"}}>Enter an address to begin</div>;
   }
   return (
     <ReactMapGL
