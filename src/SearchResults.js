@@ -1,8 +1,10 @@
 import { Table } from "antd";
 
 function SearchResults(props) {
-  if (props.locations === null) return null;
-
+  if (props.locations === null) {
+    return <div style={{marginTop: "2vh", width: "100%", height: "95%", backgroundColor: "lightgrey"}} />;
+  }
+  
   const columns = [
     {
       title: "Name",

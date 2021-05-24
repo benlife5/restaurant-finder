@@ -34,7 +34,9 @@ function LocationsMap(props) {
     })
   }, [locations])
 
-  if (locations === null) return null;
+  if (locations === null) {
+    return <div style={{width: "100%", height: "100%", backgroundColor: "lightgrey"}} />;
+  }
   return (
     <ReactMapGL
       {...viewport}
