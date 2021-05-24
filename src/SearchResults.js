@@ -14,7 +14,10 @@ function SearchResults(props) {
     {
       title: "Address",
       dataIndex: "formatted_address",
-      key: "address"
+      key: "address",
+      render: address => {
+        return <a href={"https://www.google.com/maps/dir/?api=1&destination=" + address} target="_blank" rel="noreferrer">{address}</a>
+      }
     }, 
     {
       title: "Rating",
