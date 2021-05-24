@@ -8,7 +8,8 @@ function SearchResults(props) {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name)
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      width: "20%"
     }, 
     {
       title: "Address",
@@ -19,7 +20,8 @@ function SearchResults(props) {
       title: "Rating",
       dataIndex: "rating",
       key: "rating",
-      sorter: (a, b) => a.rating - b.rating
+      sorter: (a, b) => a.rating - b.rating,
+      width: "10%"
     }, 
     {
       title: "Price",
@@ -33,7 +35,8 @@ function SearchResults(props) {
         }
         return output;
       },
-      sorter: (a, b) => b.price_level - a.price_level
+      sorter: (a, b) => b.price_level - a.price_level,
+      width: "10%"
     },
     {
       title: "Link",
@@ -42,19 +45,21 @@ function SearchResults(props) {
       render: link => {
         if (link === undefined) return "";
         return <a href={link}>Website</a>;
-      }
+      },
+      width: "10%"
     }, 
     {
       title: "Phone",
       dataIndex: "formatted_phone_number",
       key: "phone",
       render: number => <a href={"tel:" + number}>{number}</a>,
+      width: "15%"
     }
   ]
 
   return (
-    <div>
-      <Table dataSource={props.locations} columns={columns} pagination={{pageSize: 20, position: ["none", "none"]}} scroll={{y: "40vh"}}/>
+    <div style={{marginTop: "2vh"}}>
+      <Table dataSource={props.locations} columns={columns} pagination={{pageSize: 20, position: ["none", "none"]}} scroll={{y: "38vh"}}/>
     </div>
   );
 }
