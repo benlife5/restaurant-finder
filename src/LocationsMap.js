@@ -29,18 +29,12 @@ function LocationsMap(props) {
       height: "100%",
       latitude: lat,
       longitude: lng,
-      zoom: 12
+      zoom: 12,
+      style: {mapbox:'//styles/mapbox/streets-v11'}
     })
   }, [locations])
 
-  const click = (l) => {
-    console.log("click", l)
-  }
-
-
   if (locations === null) return null;
-
-
   return (
     <ReactMapGL
       {...viewport}
@@ -52,7 +46,7 @@ function LocationsMap(props) {
         </Marker>
       )}
       {activePopup && (
-        <Popup tipSize={5} anchor="top" longitude={activePopup.geometry.location.lng} latitude={activePopup.geometry.location.lat}>
+        <Popup tipSize={5} anchor="top" longitude={activePopup.geometry.location.lng} latitude={activePopup.geometry.location.lat} onClose={setActivePopup}>
           {activePopup.name}
         </Popup>
       )}
