@@ -9,12 +9,13 @@ import LocationsMap from './LocationsMap.js';
 function App() {
 
   const [results, setResults] = useState(null);
+  const [inputCoords, setInputCoords] = useState(null);
   // console.log("TOP LEVEL", results)
   return (
     <div style={{height: "100%"}}>
       <Row style={{height: "50%"}}>
-        <Col span={12}><SearchInput setResults={setResults}/></Col>
-        <Col span={12}><LocationsMap locations={results}/></Col>
+        <Col span={12}><SearchInput setResults={setResults} setInputCoords={setInputCoords}/></Col>
+        <Col span={12}><LocationsMap locations={results} inputCoords={inputCoords}/></Col>
       </Row>
       <Row style={{height: "50%"}}>
         <Col span={24}><SearchResults locations={results}/></Col>

@@ -34,6 +34,7 @@ function LocationsMap(props) {
     })
   }, [locations])
 
+  console.log(props.inputCoords)
   if (locations === null) {
     return <div style={{width: "100%", height: "100%", backgroundColor: "#f9f9f9", display: "flex", alignItems: "center", justifyContent: "center"}}>Enter an address to begin</div>;
   }
@@ -44,7 +45,7 @@ function LocationsMap(props) {
     >
       {locations.map((l) => 
         <Marker latitude={l.geometry.location.lat} longitude={l.geometry.location.lng} offsetLeft={-20} offsetTop={-10} key={l.key}>
-          <img src="https://img.icons8.com/color/16/000000/marker--v1.png" alt="Red marker" onClick={() => {setActivePopup(l)}} />
+          <img src="https://img.icons8.com/office/24/000000/marker.png" alt="Red marker" onClick={() => {setActivePopup(l)}} />
         </Marker>
       )}
       {activePopup && (
@@ -53,7 +54,7 @@ function LocationsMap(props) {
           {/* <a href={"https://google.com"}>{activePopup.name}</a> */}
         </Popup>
       )}
- 
+      <Marker latitude={props.inputCoords.lat} longitude={props.inputCoords.lng} offsetLeft={-20} offsetTop={-10}><img src="https://img.icons8.com/ultraviolet/24/000000/marker.png" alt="blue marker"/></Marker>
   </ReactMapGL>
   );
 }

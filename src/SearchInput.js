@@ -38,6 +38,7 @@ function SearchInput(props) {
     .then((geocodeLocation) => {
       console.log("location", geocodeLocation);
       if (geocodeLocation.data.status === "OK") {
+        props.setInputCoords(geocodeLocation.data.results[0].geometry.location);
         return geocodeLocation.data.results[0].geometry.location;
       }
       else {
@@ -46,7 +47,7 @@ function SearchInput(props) {
     }) 
     // Main search for places 
     .then ((coords) => {
-      console.log(searchInput);
+      // console.log(searchInput);
       let searchParams = {
         key: GOOGLE_PLACES_API_KEY,
         location: coords.lat + "," + coords.lng,
